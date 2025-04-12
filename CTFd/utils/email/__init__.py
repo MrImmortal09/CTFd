@@ -110,9 +110,9 @@ def verify_email_address(addr):
 
 
 def successful_registration_notification(addr):
-    text = safe_format(
-        get_config("successful_registration_email_body")
-        or DEFAULT_SUCCESSFUL_REGISTRATION_EMAIL_BODY,
+    html = safe_format(
+        get_config("successful_registration_email_html_body")
+        or DEFAULT_SUCCESSFUL_REGISTRATION_EMAIL_HTML_BODY,
         ctf_name=get_config("ctf_name"),
         ctf_description=get_config("ctf_description"),
         url=url_for("views.static_html", _external=True),
@@ -123,7 +123,9 @@ def successful_registration_notification(addr):
         or DEFAULT_SUCCESSFUL_REGISTRATION_EMAIL_SUBJECT,
         ctf_name=get_config("ctf_name"),
     )
-    return sendmail(addr=addr, text=text, subject=subject)
+
+    return sendmail(addr=addr, html=html, subject=subject)
+
 
 
 def user_created_notification(addr, name, password):
